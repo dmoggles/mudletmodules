@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.0">
+    <ScriptPackage>
+        <ScriptGroup isActive="yes" isFolder="yes">
+            <name>ShieldRaze</name>
+            <packageName></packageName>
+            <script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+</script>
+            <eventHandlerList/>
+            <Script isActive="yes" isFolder="no">
+                <name>shield_raze_on_target_change</name>
+                <packageName></packageName>
+                <script>----------------------------------------
+--This function will fire every time we set a new target.  We will use it to reset 
+--state tracking variables.
+-------------------------------------------
+
+function shield_raze_on_target_change()
+	--Without any prior information, we will assume the target doesn't have shield or prismatic on
+	shield=false
+	prismatic=false
+	--Without any prior information, we will assume the target DOES have rebounding on. 
+	--Because we really don't want to hit rebounding
+	rebounding=true
+
+	--We will also assume curseward is on, because why the hell not.  
+	--This really only affects diabolists
+	curseward=true
+end
+	</script>
+                <eventHandlerList>
+                    <string>setNewTargetEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>shield_raze_on_startup</name>
+                <packageName></packageName>
+                <script>-------------------------------------------------
+--This initializes a bunch of razing related variables.  It runs when you start up mudlet and load your profile
+--IMPORTANT NOTE: EDIT THIS TO INCLUDE YOUR CLASS RAZE MECHANIC
+-------------------------------------------------
+function shield_raze_on_startup()
+	--Normal state tracking stuff
+	shield=false
+	rebounding=false
+	curseward=false
+	prismatic=false
+
+
+	--IMPORTANT: OVERWRITE THIS WITH YOUR CLASS COMMAND
+	--This will not work for everyone or be useful in all situations
+	raze_command_string=&quot;WM RAZE RAZE %s&quot;
+end
+</script>
+                <eventHandlerList>
+                    <string>sysLoadEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>on_shield_change</name>
+                <packageName></packageName>
+                <script>-------------------------------------------------
+-- This is a very simplistic shield event handler
+-- All this will do is clear your queue whenever there's 
+-- A shieldChangeEvent being fired that indicated a shield went up
+-- You can add your own shieldChangeEvent handlers or rewrite this one
+-- To do something more interesting
+-------------------------------------------------
+function on_shield_change(event, shield_status)
+	if shield_status == &quot;on&quot; then
+		send(&quot;queue reset all&quot;)
+	end
+end</script>
+                <eventHandlerList>
+                    <string>shieldChangeEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>on_rebounding_change</name>
+                <packageName></packageName>
+                <script>-------------------------------------------------
+-- This is a very simplistic rebounding event handler
+-- All this will do is clear your queue whenever there's 
+-- A reboundingChangeEvent being fired that indicated a rebounding aura went up
+-- You can add your own reboundingChangeEvent handlers or rewrite this one
+-- To do something more interesting
+-------------------------------------------------
+function on_rebounding_change(event, rebounding_status)
+	if rebounding_status == &quot;on&quot; then
+		send(&quot;queue reset all&quot;)
+	end
+end</script>
+                <eventHandlerList>
+                    <string>reboundingChangeEvent</string>
+                </eventHandlerList>
+            </Script>
+            <Script isActive="yes" isFolder="no">
+                <name>shield_raze_functions</name>
+                <packageName></packageName>
+                <script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+function check_raze(attack)
+	if shield==false and rebounding==false then
+		send(attack)
+	else
+		send(string.format(raze_command_string,target))
+	end
+end</script>
+                <eventHandlerList/>
+            </Script>
+        </ScriptGroup>
+    </ScriptPackage>
+</MudletPackage>

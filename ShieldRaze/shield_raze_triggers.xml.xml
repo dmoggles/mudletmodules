@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.0">
+    <TriggerPackage>
+        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>ShieldRaze</name>
+            <script></script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList/>
+            <regexCodePropertyList/>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>ShieldUp</name>
+                <script>---------------------------------------------------------
+--Trigger shield going up.  We are going to do a couple of things
+--1. Check that the person who shielded up is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the shield variable to true
+--4. Raise an shieldChangeEvent with parameter true
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:red&gt;SHIELD UP! SHIELD UP!&quot;)
+	shield=true
+	raiseEvent(&quot;shieldChangeEvent&quot;, &quot;on&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^A numbing energy runs up your limbs as your attack rebounds off of (\w+)'s shield\.$</string>
+                    <string>^A shimmering translucent shield forms around (\w+)\.$</string>
+                    <string>^(\w+) wraps (?:his|her) bone wings about (?:his|her) body, forming a translucent shield\.$</string>
+                    <string>^(\w+) grasps (?:his|her) shield solidly in front of (?:him|her) as (?:he|she) mumbles a quick prayer\.</string>
+                    <string>^(\w+) wraps (?:his|her) wings about (?:his|her) body, forming a translucent shield\.</string>
+                    <string>^(\w+) grips (?:his|her) shield tightly as a murky haze slowly rises from it, forming a protective translucent barrier around (?:him|her)\.</string>
+                    <string>^(\w+) whips his shield swiftly in the air around him, tracing a</string>
+                    <string>^(\w+) bangs against h(?:is|er) shield with a clenched fist, then spins it around until a translucent barrier forms around h(?:im|er)\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>ShieldDown</name>
+                <script>---------------------------------------------------------
+--Trigger shield going down.  We are going to do a couple of things
+--1. Check that the person who lost shield is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the shield variable to false
+--4. Raise an shieldChangeEvent with parameter false
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:green&gt;SHIELD DOWN! SHIELD DOWN!&quot;)
+	shield=false
+	raiseEvent(&quot;shieldChangeEvent&quot;, &quot;off&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^The shimmering translucent shield around (\w+) fades away\.$</string>
+                    <string>^A massive, ethereal hammer rises out of \w+\'s tattoo and smashes (\w+)\'s translucent shield\.$</string>
+                    <string>^(\w+)\'s protective shield melts away\.$</string>
+                    <string>^You touch your tattoo and a massive, ethereal hammer rises up and shatters the translucent shield surrounding (\w+)\.</string>
+                    <string>^You raze (\w+)\'s translucent shield with (.*)\.$</string>
+                    <string>^With an enraged fury, \w+ smashes (?:his|her) mace against a translucent shield surrounding (\w+), shattering it\.</string>
+                    <string>^You whip .* through the air in front of (\w+), to no effect\.</string>
+                    <string>^You jab .+ towards (\w+) but tumble forward slightly as it meets no resistance\.</string>
+                    <string>^The flame explodes into a searing furnace that strips (\w+)\'s translucent shield before vanishing entirely\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>ReboundingUp</name>
+                <script>---------------------------------------------------------
+--Trigger rebounding going up.  We are going to do a couple of things
+--1. Check that the person who put rebounding up is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the rebounding variable to true
+--4. Raise an reboundingChangeEvent with parameter true
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:red&gt;REBOUNDING UP! REBOUNDING UP!&quot;)
+	rebounding=true
+	raiseEvent(&quot;reboundingChangeEvent&quot;, &quot;on&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^You suddenly perceive the vague outline of an aura of rebounding around (\w+)\.$</string>
+                    <string>^You suddenly perceive the vague outline of an aura of rebounding around (\w+)$</string>
+                    <string>^You suddenly perceive the vague outline of an aura of rebounding around (\w+)$</string>
+                    <string>^A demonic daegger hurls itself at (\w+), striking his aura of rebounding\.</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>ReboundingDown</name>
+                <script>---------------------------------------------------------
+--Trigger rebounding going down.  We are going to do a couple of things
+--1. Check that the person who lost rebounding is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the shield variable to false
+--4. Raise an shieldChangeEvent with parameter false
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:green&gt;REBOUNDING DOWN! REBOUNDING DOWN!&quot;)
+	rebounding=false
+	raiseEvent(&quot;reboundingChangeEvent&quot;, &quot;off&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^\w+ razes (\w+)\'s aura of rebounding with .+\.</string>
+                    <string>^You raze (\w+)\'s aura of rebounding with .+\.</string>
+                    <string>^You whip .+ through the air in front of (\w+), to no effect\.$</string>
+                    <string>^\w+ drives .+ through (\w+)\'s aura of rebounding, destroying it\.$</string>
+                    <string>^(\w+)\'s aura of weapons rebounding disappears\.$</string>
+                    <string>^You jab .+ towards (\w+) but tumble forward slightly as it meets no resistance\.$</string>
+                    <string>^You jab .+ towards (\w+), piercing through and shattering \w+ aura of rebounding\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>ReboundingUp1stParty</name>
+                <script>---------------------------------------------------------
+--Trigger rebounding going up in response to your attack.  We are going to do a couple of things
+--1. Put up an easy-to-see message
+--3. Set the rebounding variable to true
+--4. Raise an reboundingChangeEvent with parameter true
+----------------------------------------------------------
+deleteLine()
+cecho(&quot;\n&lt;yellow:red&gt;REBOUNDING UP! REBOUNDING UP!&quot;)
+rebounding=true
+raiseEvent(&quot;reboundingChangeEvent&quot;, &quot;on&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^The attack rebounds back onto you!$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>ReboundingDown1stParty</name>
+                <script>---------------------------------------------------------
+--Trigger rebounding going down in response to your attack.  We are going to do a couple of things
+--1. Put up an easy-to-see message
+--3. Set the rebounding variable to false
+--4. Raise an reboundingChangeEvent with parameter false
+----------------------------------------------------------
+deleteLine()
+cecho(&quot;\n&lt;yellow:green&gt;REBOUNDING DOWN! REBOUNDING DOWN!&quot;)
+rebounding=false
+raiseEvent(&quot;reboundingChangeEvent&quot;, &quot;off&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^(?:His|Her) aura of rebounding is breached\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>PrismaticUp</name>
+                <script>---------------------------------------------------------
+--Trigger prismatic going up.  We are going to do a couple of things
+--1. Check that the person who put rebounding up is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the rebounding variable to true
+--4. Raise an reboundingChangeEvent with parameter true
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:red&gt;PRISMATIC UP! PRISMATIC UP!&quot;)
+	prismatic=true
+	raiseEvent(&quot;prismaticChangeEvent&quot;, &quot;on&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^(\w+) spins .+ into a quick blur, catching the light and settling it around \w+ in a protective barrier\.$</string>
+                    <string>^(\w+) slowly draws a circle around (?:her|him)self, and a shimmering prismatic barrier slowly forms, creating a sturdy barrier around (?:her|him)\.$</string>
+                    <string>^(\w+) strums a few notes on .+, and a prismatic barrier forms around (?:him|her)\.$</string>
+                    <string>^Your attack is repelled by the prismatic barrier surrounding (\w+)\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>PrismaticDown</name>
+                <script>---------------------------------------------------------
+--Trigger prismatic going down.  We are going to do a couple of things
+--1. Check that the person who lost prismatic is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the shield variable to false
+--4. Raise an shieldChangeEvent with parameter false
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:green&gt;PRISMATIC DOWN! PRISMATIC DOWN!&quot;)
+	prismatic=false
+	raiseEvent(&quot;prismaticChangeEvent&quot;, &quot;off&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^(\w+)\'s prismatic barrier dissolves into nothing\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>CursewardUp</name>
+                <script>---------------------------------------------------------
+--Trigger curseward going up.  We are going to do a couple of things
+--1. Check that the person who put curseward up is our actual target
+--2. If so, put up an easy-to-see message
+--3. Set the curseward variable to true
+--4. Raise an cursewardChangeEvent with parameter true
+----------------------------------------------------------
+local t = matches[2]
+if check_target(t) then
+	deleteLine()
+	cecho(&quot;\n&lt;yellow:red&gt;CURSEWARD UP! CURSEWARD UP!&quot;)
+	curseward=true
+	raiseEvent(&quot;cursewardChangeEvent&quot;, &quot;on&quot;)
+end</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^You try to give (\w+) the evileye, but (?:he|she) is warded\.$</string>
+                    <string>^A shimmering curseward appears around (\w+)(?:\.)?$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>CursewardDown</name>
+                <script>---------------------------------------------------------
+--Trigger curseward going down in response to your attack.  We are going to do a couple of things
+--1. Put up an easy-to-see message
+--3. Set the curseward variable to false
+--4. Raise an cursewardChangeEvent with parameter false
+----------------------------------------------------------
+deleteLine()
+cecho(&quot;\n&lt;yellow:green&gt;CURSEWARD DOWN! CURSEWARD DOWN!&quot;)
+curseward=false
+raiseEvent(&quot;cursewardChangeEvent&quot;, &quot;off&quot;)</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>^(?:His|Her) curseward has failed!$</string>
+                    <string>^There is nothing left to breach\.$</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>1</integer>
+                    <integer>1</integer>
+                </regexCodePropertyList>
+            </Trigger>
+        </TriggerGroup>
+    </TriggerPackage>
+</MudletPackage>

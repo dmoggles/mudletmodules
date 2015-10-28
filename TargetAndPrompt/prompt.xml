@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.0">
+    <TriggerPackage>
+        <TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+            <name>Prompt</name>
+            <script></script>
+            <triggerType>0</triggerType>
+            <conditonLineDelta>0</conditonLineDelta>
+            <mStayOpen>0</mStayOpen>
+            <mCommand></mCommand>
+            <packageName></packageName>
+            <mFgColor>#ff0000</mFgColor>
+            <mBgColor>#ffff00</mBgColor>
+            <mSoundFile></mSoundFile>
+            <colorTriggerFgColor>#000000</colorTriggerFgColor>
+            <colorTriggerBgColor>#000000</colorTriggerBgColor>
+            <regexCodeList/>
+            <regexCodePropertyList/>
+            <Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+                <name>Prompt</name>
+                <script>--Remove the real trigger
+deleteLine()
+
+--Retrieve all the values we need from GMCP
+local hp, maxhp= tonumber(gmcp.Char.Vitals.hp)/11, tonumber(gmcp.Char.Vitals.maxhp)/11
+local mp, maxmp= tonumber(gmcp.Char.Vitals.mp)/11, tonumber(gmcp.Char.Vitals.maxmp)/11
+local bal = gmcp.Char.Vitals.bal
+local eq = gmcp.Char.Vitals.eq
+local blind = gmcp.Char.Vitals.blind
+local deaf = gmcp.Char.Vitals.deaf
+
+--Set mana and health colors.  If you want different thresholds, change them here
+local hc = &quot;green&quot;
+if hp/maxhp &lt; .75 then
+	hc = &quot;yellow&quot;
+end  
+if hp/maxhp &lt; .5 then
+	hc = &quot;red&quot;
+end 
+
+local mc = &quot;green&quot;
+if mp/maxmp &lt; .75 then
+	mc = &quot;yellow&quot;
+end  
+if mp/maxmp &lt; .5 then
+	mc = &quot;red&quot;
+end 
+--Construct the prompt string
+local prompt=&quot;\n&quot;
+
+--Health and Mana
+prompt=prompt..&quot;&lt;grey&gt;H:&lt;&quot;..hc..&quot;&gt;&quot;..string.format(&quot;%d&quot;,hp)
+prompt=prompt..&quot;&lt;grey&gt;/&lt;green&gt;&quot;..string.format(&quot;%d&quot;,maxhp)
+
+prompt=prompt..&quot; &lt;grey&gt;M:&lt;&quot;..mc..&quot;&gt;&quot;..string.format(&quot;%d&quot;,mp)
+prompt=prompt..&quot;&lt;grey&gt;/&lt;green&gt;&quot;..string.format(&quot;%d&quot;,maxmp)
+
+--EQ Bal
+prompt=prompt..&quot; &lt;grey&gt;\&lt;&quot;
+if eq == &quot;1&quot; then
+	prompt=prompt..&quot;&lt;green&gt;e&quot;
+else
+	prompt=prompt..&quot;&lt;grey&gt;-&quot;
+end
+
+if bal == &quot;1&quot; then
+	prompt=prompt..&quot;&lt;green&gt;b&quot;
+else
+	prompt=prompt..&quot;&lt;grey&gt;-&quot;
+end
+
+--Deaf and blind
+
+if blind == &quot;1&quot; or deaf == &quot;1&quot; then
+	prompt=prompt..&quot; &quot;
+	if blind==&quot;1&quot; then
+		prompt=prompt..&quot;&lt;yellow&gt;b&quot;
+	end
+	if deaf==&quot;1&quot; then
+		prompt=prompt..&quot;&lt;yellow&gt;d&quot;
+	end
+end 
+
+--Target
+if target~=nil then
+	prompt=prompt..&quot; &lt;yellow&gt;t: &lt;red&gt;&quot;..target
+end
+
+prompt=prompt..&quot;&lt;grey&gt;\&gt;&quot;
+
+cecho(prompt)
+
+</script>
+                <triggerType>0</triggerType>
+                <conditonLineDelta>0</conditonLineDelta>
+                <mStayOpen>0</mStayOpen>
+                <mCommand></mCommand>
+                <packageName></packageName>
+                <mFgColor>#ff0000</mFgColor>
+                <mBgColor>#ffff00</mBgColor>
+                <mSoundFile></mSoundFile>
+                <colorTriggerFgColor>#000000</colorTriggerFgColor>
+                <colorTriggerBgColor>#000000</colorTriggerBgColor>
+                <regexCodeList>
+                    <string>return isPrompt()</string>
+                </regexCodeList>
+                <regexCodePropertyList>
+                    <integer>4</integer>
+                </regexCodePropertyList>
+            </Trigger>
+        </TriggerGroup>
+    </TriggerPackage>
+</MudletPackage>
